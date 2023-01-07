@@ -45,7 +45,7 @@ void print(catalog *catalog1){
 }
 
 int main() {
-    FILE *films = fopen("films.txt", "r");
+    FILE *films = fopen("C:\\Users\\asus\\CLionProjects\\Kino\\films.txt", "r");
     film *film1 = (film*) malloc(sizeof(film));
     catalog *ctlg = (catalog*)malloc(sizeof(catalog));
     for (int i = 0; i < 1; i++){
