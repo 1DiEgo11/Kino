@@ -1,0 +1,49 @@
+login: kjdfgh
+password: EIJhdfji35
+card: 1234 5678 9123 5343
+favorite: 4
+isAdmin: 1
+
+
+login: goieg
+password: stkRkK24
+card: 3434 4756 7976 8756
+favorite: 5
+isAdmin: 0
+
+
+login: sdifh
+password: FJUEjfr57
+card: 9654 4565 6549 4569
+favorite: 456
+isAdmin: 0
+
+
+login: sdfrgh
+password: FEhgut543
+card: 8673 6547 1765 8644
+favorite: 54
+isAdmin: 1
+
+
+login: ujtpj
+password: FJOhpj84hg
+card: 5036 4689 3645 6948
+favorite: 463
+isAdmin: 0
+
+
+login: FUhuie
+password: jy6uYHUHG4Fgr
+card: 5648 4569 3225 5646
+favorite: 43
+isAdmin: 0
+
+
+login: tijgr
+password: FOIJSgery345
+card: 6436 6582 7835 5340
+favorite: 30
+isAdmin: 0
+
+
