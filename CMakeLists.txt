@@ -3,4 +3,4 @@ project(Kino C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Kino main.c)
+add_executable(Kino main.c catalog.h catalog.c)
