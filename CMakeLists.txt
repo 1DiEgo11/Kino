@@ -3,4 +3,6 @@ project(Kino C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Kino main.c catalog.h catalog.c)
+add_executable(Kino main.c catalog.h catalog.c user.c user.h)
+configure_file(films.txt films.txt COPYONLY)
+configure_file(Users.txt Users.txt COPYONLY)

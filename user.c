@@ -62,7 +62,6 @@ int check_login1(const char s[20]){
 
 int chek_login2(const char s[20],FILE *out){
     Users *base;
-    while
 }
 
 int check_pass(const char s[20]){
