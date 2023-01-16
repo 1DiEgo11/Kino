@@ -5,6 +5,7 @@ typedef struct Users{
     char login[20],password[20],card[20];
     int fav_size,admin;
     struct Users *prev;
+    char favorite_file[29];
 }Users;
 
 Users read_user(FILE *out);
