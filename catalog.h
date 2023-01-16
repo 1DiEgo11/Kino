@@ -1,4 +1,3 @@
-
 #ifndef KINO_CATALOG_H
 #define KINO_CATALOG_H
 
@@ -21,5 +20,7 @@ struct catalog *init(catalog *ctlg, film film1);
 void *add(catalog *catalog1, film film1);
 
 void *del(catalog *catalog1);
+
+void write_in_file(FILE *out, film film1);
 
 #endif //KINO_CATALOG_H

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "catalog.h"
 
 struct catalog *init(catalog *ctlg, film film1) {
@@ -29,4 +30,12 @@ void *del(catalog *catalog1){
     prev->next = catalog1->next;
     next->prev = catalog1->prev;
     free(catalog1);
+}
+
+void write_in_file(FILE *out, film film1) {
+    fprintf(out, "%s", film1.name);
+    fprintf(out, "%s", film1.release_year);
+    fprintf(out, "%s", film1.location);
+    fprintf(out, "%s", film1.genre);
+    fprintf(out, "%s", film1.rating);
 }

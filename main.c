@@ -5,13 +5,16 @@
 #include "user.h"
 
 int main() {
-    int start;
-    FILE *out= fopen("Users.txt","a+");
-    Users *user= read_base(out);
-    fclose(out);
-    FILE *o= fopen("Users.txt","w");
-    rewrite(out,user);
-    fclose(o);
+    FILE *out = fopen("Users.txt", "a+");
+    Users user = read_user(out);
+    char str[29] = "favorite_";
+    strcat(str, user.login);
+    strcpy(user.favorite_file, str);
+    FILE *user_fav = fopen(user.favorite_file, "a+");
+//    fclose(out);
+//    FILE *o= fopen("Users.txt","w");
+//    rewrite(out,user);
+//    fclose(o);
 
 
     system("chcp 65001");
@@ -67,17 +70,74 @@ int main() {
             printf("%s", p->film.genre);
             printf("%s", p->film.rating);
         }
-        if (move == 'q'){
+        if (move == 'q') {
             //тут должно появляся окно настроек пользователя(смена пароля и логина сразу, не по отдельности)
         }
-        if (move == 'l'){
-            //Добавление в избранное
+        //Добавление в избранное
+        if (move == 'l') {
+            user.fav_size++;
+            write_in_file(user_fav, p->film);
         }
-        if (move == 'z'){
-            // Открыть список любимых
+        // Открыть список любимых
+        if (move == 'z') {
+            catalog *love = (catalog *) malloc(sizeof(catalog));
+            film *fov_film = (film *) malloc(sizeof(film));
+            FILE *film_love = fopen(user.favorite_file, "r");
+            for (int i = 0; i < 1; i++) {
+                fgets(fov_film->name, 200, film_love);
+                fgets(fov_film->release_year, 200, film_love);
+                fgets(fov_film->location, 200, film_love);
+                fgets(fov_film->genre, 200, film_love);
+                fgets(fov_film->rating, 200, film_love);
+            }
+            init(love, *fov_film);
+            while (!feof(film_love)) {
+                film *film_new = (film *) malloc(sizeof(film));
+                fgets(film_new->name, 200, film_love);
+                fgets(film_new->release_year, 200, film_love);
+                fgets(film_new->location, 200, film_love);
+                fgets(film_new->genre, 200, film_love);
+                fgets(film_new->rating, 200, film_love);
+                add(love, *film_new);
+            }
+            catalog *l = love;
+            while (1) {
+                char move_love;
+                scanf("%c", &move_love);
+                if (move_love == 'b'){
+                    system("cls");
+                    printf("Bye!!!");
+                    sleep(2);
+                    return 0;
+                }
+                if (move_love == 't') {
+                    system("cls");
+                    printf("Bye!!!");
+                    break;
+
+                }
+                if (move_love == 'a'){
+                    system("cls");
+                    l = l->next;
+                    printf("\n%s", l->film.name);
+                    printf("%s", l->film.release_year);
+                    printf("%s", l->film.location);
+                    printf("%s", l->film.genre);
+                    printf("%s", l->film.rating);
+                }
+                if (move == 'd') {
+                    system("cls");
+                    l = l->prev;
+                    printf("\n%s", l->film.name);
+                    printf("%s", l->film.release_year);
+                    printf("%s", l->film.location);
+                    printf("%s", l->film.genre);
+                    printf("%s", l->film.rating);
+                }
+            }
         }
         //Удаление из films.txt когда user админ
-        if (move == 'o' && user->admin == 1){
+        if (move == 'o' && user.admin == 1) {
             del(p);
             system("cls");
             p = p->prev;
@@ -89,5 +149,6 @@ int main() {
         }
 //        if (move == '')
     }
+    //Нужна перезапись файла юзеров так как мы изменяем значения fav_size
 }
 

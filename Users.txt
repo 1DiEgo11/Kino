@@ -1,4 +1,4 @@
-login: kjdfgh
+login: Egor
 password: EIJhdfji35
 card: 1234 5678 9123 5343
 favorite: 4
@@ -45,5 +45,3 @@ password: FOIJSgery345
 card: 6436 6582 7835 5340
 favorite: 30
 isAdmin: 0
-
-
