@@ -40,6 +40,13 @@ favorite: 43
 isAdmin: 0
 
 
+login: admin
+password: Admin123
+card: 0000 0000 0000 0000
+favorite: 0
+isAdmin: 1
+
+
 login: tijgr
 password: FOIJSgery345
 card: 6436 6582 7835 5340

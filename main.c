@@ -6,46 +6,66 @@
 
 int main() {
     FILE *out = fopen("Users.txt", "a+");
-    Users user = read_user(out);
+//    Users user = read_user(out);
     char str[29] = "favorite_";
-    strcat(str, user.login);
-    strcpy(user.favorite_file, str);
-    FILE *user_fav = fopen(user.favorite_file, "a+");
-//    fclose(out);
-//    FILE *o= fopen("Users.txt","w");
-//    rewrite(out,user);
-//    fclose(o);
-
-
+//    strcat(str, user.login);
+//    strcpy(user.favorite_file, str);
+//    FILE *user_fav = fopen(user.favorite_file, "a+");
+    Users *userb= read_base(out);
     system("chcp 65001");//поддержка русского языка
     system("cls");
-    //Создание каталога всех фильмов
-    FILE *films = fopen("films.txt", "a+");
+    FILE *films = fopen("films.txt", "r");
     film *film1 = (film *) malloc(sizeof(film));
     catalog *ctlg = (catalog *) malloc(sizeof(catalog));
     for (int i = 0; i < 1; i++) {
-        fgets(film1->name, 77, films);
-        fgets(film1->release_year, 6, films);
-        fgets(film1->location, 38, films);
-        fgets(film1->genre, 44, films);
-        fgets(film1->rating, 5, films);
+        fgets(film1->name, 200, films);
+        fgets(film1->release_year, 200, films);
+        fgets(film1->location, 200, films);
+        fgets(film1->genre, 200, films);
+        fgets(film1->rating, 200, films);
     }
     init(ctlg, *film1);
     while (!feof(films)) {
         film *film_new = (film *) malloc(sizeof(film));
-        fgets(film_new->name, 77, films);
-        if (feof(films))
-            break;
-        fgets(film_new->release_year, 6, films);
-        fgets(film_new->location, 38, films);
-        fgets(film_new->genre, 44, films);
-        fgets(film_new->rating, 5, films);
+        fgets(film_new->name, 200, films);
+        fgets(film_new->release_year, 200, films);
+        fgets(film_new->location, 200, films);
+        fgets(film_new->genre, 200, films);
+        fgets(film_new->rating, 200, films);
         add(ctlg, *film_new);
     }
     catalog *p = ctlg;
-
+    printf("Чтобы войти, в аккаунт нажмите e, чтобы зарегистрироваться - r\n");
+    char move,login[20],password[20];
+    scanf("%c",&move);
+    //вход (регистрация)
+    if (move=='e'){
+        while (1){
+            printf("login: ");
+            scanf("%s",login);
+            printf ("password: ");
+            scanf("%s",password);
+            if( enter(login,password,userb)==1) break;
+        }
+        printf("Вход успешно выполнен\n");
+    }
+    else if (move=='r'){
+        char card[19];
+        printf("login: ");
+        scanf("%s",login);
+        printf ("password: ");
+        scanf("%s",password);
+        printf("card: ");
+        gets(card);
+        gets(card);
+        rgister(login,password,card,out,userb);
+        printf("Аккаунт успешно зарегистрирован\n");
+    }
+    fclose(out);
     while (1) {
-        char move;
+        FILE *outt= fopen("Users.txt", "a+");
+        Users *start= read_base(outt);
+//        char move;
         scanf("%c", &move);
         //Завершение программы
         if (move == 'b') {
@@ -58,7 +78,7 @@ int main() {
         if (move == 'a') {
             system("cls");
             p = p->next;
-            printf("%s", p->film.name);
+            printf("\n%s", p->film.name);
             printf("%s", p->film.release_year);
             printf("%s", p->film.location);
             printf("%s", p->film.genre);
@@ -68,26 +88,60 @@ int main() {
         if (move == 'd') {
             system("cls");
             p = p->prev;
-            printf("%s", p->film.name);
+            printf("\n%s", p->film.name);
             printf("%s", p->film.release_year);
             printf("%s", p->film.location);
             printf("%s", p->film.genre);
             printf("%s", p->film.rating);
         }
-        if (move == 'q') {
+        if (move == 'q'){
             //тут должно появляся окно настроек пользователя(смена пароля и логина сразу, не по отдельности)
+            while (1){
+                printf("login: ");
+                scanf("%s",login);
+                printf ("password: ");
+                scanf("%s",password);
+                if( enter(login,password,userb)==1) break;
+            }
+            while (strcmp(userb->login,login)!=0) userb=userb->prev;
+            printf("New login: ");
+            scanf("%s",login);
+            printf("New password: ");
+            scanf("%s",password);
+            while (check_login1(login)!=1 || check_login2(login,start)!=1){
+                if (check_login1(login)!=1) printf("Error! Print the correct login\n");
+                else printf("Логин занят\n");
+                printf("New login: ");
+                gets(login);
+            }
+            strcpy(userb->login,login);
+            while (check_pass(password)!=1){
+                printf("Error! Print the correct password\n");
+                printf("New password: ");
+                gets(password);
+            }
+            strcpy(userb->password,password);
+            FILE *re= fopen("Users.txt","w");
+            rewrite(re,start);
+            fclose(re);
         }
         //Добавление в избранное
         if (move == 'l') {
-            user.fav_size++;
+            while (strcmp(userb->login,login)!=0) userb=userb->prev;
+            userb->fav_size++;
+            printf("%s",userb->login);
+            FILE *user_fav = fopen(userb->favorite_file, "a+");
             write_in_love(user_fav, p->film);
+            FILE *re= fopen("Users.txt","w");
+            rewrite(re,start);
+            fclose(re);
         }
         // Открыть список любимых
         if (move == 'z') {
             system("cls");
             catalog *love = (catalog *) malloc(sizeof(catalog));
             film *fov_film = (film *) malloc(sizeof(film));
-            FILE *film_love = fopen(user.favorite_file, "r");
+            FILE *film_love = fopen(userb->favorite_file, "r");
             for (int i = 0; i < 1; i++) {
                 fgets(fov_film->name, 77, film_love);
                 fgets(fov_film->release_year, 6, film_love);
@@ -147,54 +201,17 @@ int main() {
             }
         }
         //Удаление из films.txt когда user админ
-        if (move == 'o' && user.admin == 1) {
+        if (move == 'o' && userb->admin == 1){
             del(p);
             system("cls");
             p = p->prev;
-            printf("%s", p->film.name);
+            printf("\n%s", p->film.name);
             printf("%s", p->film.release_year);
             printf("%s", p->film.location);
             printf("%s", p->film.genre);
             printf("%s", p->film.rating);
         }
-        //Добавление нового фильма в films.txt когда user админ
-        if (move == 'n' && user.admin == 1){
-            system("cls");
-            film *new_film = (film*) malloc(sizeof(film));
-
-            char name[77];
-            printf("Введите название фильма:");
-            scanf("%s", name);
-            name[76] = '\n';
-            strcpy(new_film->name, name);
-
-            char release_year[6];
-            printf("Введите год выпуска фильма:");
-            scanf("%s", release_year);
-            strcpy(new_film->release_year, release_year);
-
-            char location[38];
-            printf("Введите страну выпуска фильма:");
-            scanf("%s", location);
-            strcpy(new_film->location, location);
-
-            char genre[44];
-            printf("Введите жанр фильма:");
-            scanf("%s", genre);
-            strcpy(new_film->genre, genre);
-
-            char rating[5];
-            printf("Введите рейтинг фильма:");
-            scanf("%s", rating);
-            strcpy(new_film->rating, rating);
-
-            add(ctlg, *new_film);
-        }
+//        if (move == '')
     }
-    fclose(films);
-    //Перезапись файла films.txt так как может быть админ добавил новый фильм
-    FILE *rewrite = fopen("films.txt", "w");
-    rewrite_films(rewrite, ctlg);
-    //Нужна перезапись файла юзеров так как мы изменяем значения fav_size
 }
 
