@@ -32,10 +32,28 @@ void *del(catalog *catalog1){
     free(catalog1);
 }
 
-void write_in_file(FILE *out, film film1) {
+void write_in_love(FILE *out, film film1) {
     fprintf(out, "%s", film1.name);
     fprintf(out, "%s", film1.release_year);
     fprintf(out, "%s", film1.location);
     fprintf(out, "%s", film1.genre);
     fprintf(out, "%s", film1.rating);
+}
+
+void rewrite_films(FILE *out, catalog *catalog1){
+    fprintf(out, "%s", catalog1->film.name);
+    fprintf(out, "%s", catalog1->film.release_year);
+    fprintf(out, "%s", catalog1->film.location);
+    fprintf(out, "%s", catalog1->film.genre);
+    fprintf(out, "%s", catalog1->film.rating);
+
+    catalog *p = catalog1->prev;
+    while (p != catalog1){
+        fprintf(out, "%s", p->film.name);
+        fprintf(out, "%s", p->film.release_year);
+        fprintf(out, "%s", p->film.location);
+        fprintf(out, "%s", p->film.genre);
+        fprintf(out, "%s", p->film.rating);
+        p = p->prev;
+    }
 }
