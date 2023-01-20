@@ -9,11 +9,16 @@ typedef struct Users{
 }Users;
 
 Users read_user(FILE *out);
-Users* read_base(FILE *out);
+Users *initu(FILE *out);
 int check_login1(const char s[20]);
+Users* addu(Users *start,FILE *out);
+Users* read_base(FILE *out);
+Users* getlast(Users *start);
+int check_login2(const char s[20],Users *base);
 int check_pass(const char s[20]);
 int check_card(const char s[19]);
-void rgister(const char l[20], const char p[20], const char c[19], FILE *out);
+void rgister(const char l[20], const char p[20], const char c[19], FILE *out,Users *base);
+int enter(const char l[20],const char p[20],Users *base);
 void rewrite(FILE *out,Users *start);
 
 #endif //CINEMA_USER_H
