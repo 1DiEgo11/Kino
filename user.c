@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "user.h"
-
+#include "draw_A.h"
 
 Users read_user(FILE *out){
     char trash[10],c[21],card[20];
@@ -110,41 +110,83 @@ int check_card(const char s[19]){
 
 void rgister(const char l[20], const char p[20], const char c[19], FILE *out,Users *base){
     char lp[20],card[19];
-    int a=0;
+    int k=0;
     if (check_login1(l)!=1 || check_login2(l,base)!=1){
-        if (check_login1(l)!=1) printf("Error! Print the correct login\n");
-        else printf("Логин занят\n");
-        printf("login: ");
+        system("cls");
+        if (check_login1(l)!=1)
+            printf("\t\t\t\t\tError! Print the correct login\n");
+        else
+            printf("\t\t\t\t\t\t\tЛогин занят\n");
+        a(8);
+        b(7);
+        printf("!REGISTR ACCOUNT!");
+        a(4);
+        b(6);
+        printf("   USER NAME(до 15 символов)\n\n");
+        b(8);
         gets(lp);
         while (check_login1(lp)!=1 || check_login2(lp,base)!=1){
-            if (check_login1(lp)!=1) printf("Error! Print the correct login\n");
-            else printf("Логин занят\n");
-            printf("login: ");
+            system("cls");
+            if (check_login1(lp)!=1) printf("\t\t\t\t\tError! Print the correct login\n");
+            else printf("\t\t\t\t\t\t\tЛогин занят\n");
+            a(8);
+            b(7);
+            printf("!REGISTR ACCOUNT!");
+            a(4);
+            b(6);
+            printf("   USER NAME(до 15 символов)\n\n");
+            b(8);
             gets(lp);
-            a+=1;
+            k+=1;
         }
         fprintf(out,"login: %s\n",lp);
     }
     else fprintf(out,"login: %s\n",l);
     if (check_pass(p)!=1){
-        printf("Error! Print the correct password\n");
-        printf("password: ");
+        system("cls");
+        printf("\t\t\t\t\tError! Print the correct password\n");
+        a(8);
+        b(7);
+        printf("!REGISTR ACCOUNT!");
+        a(4);
+        b(6);printf("    PASSWORD(до 20 символов)\n\n");
+        b(8);
         gets(lp);
         while (check_pass(lp)!=1){
-            printf("Error! Print the correct password\n");
-            printf("password: ");
+            system("cls");
+            printf("\t\t\t\t\tError! Print the correct password\n");
+            a(8);
+            b(7);
+            printf("!REGISTR ACCOUNT!");
+            a(4);
+            b(6);printf("    PASSWORD(до 20 символов)\n\n");
+            b(8);
             gets(lp);
         }
         fprintf(out,"password: %s\n",lp);
     }
     else fprintf(out,"password: %s\n",p);
     if (check_card(c)!=1){
-        printf("Error! Print the correct card\n");
-        printf("card: ");
+        system("cls");
+        printf("\t\t\t\t\tError! Print the correct card\n");
+        a(8);
+        b(7);
+        printf("!REGISTR ACCOUNT!");
+        a(4);
+        b(6);
+        printf("   CARD NOMBER\n\n");
+        b(8);
         gets(card);
         while (check_card(card)!=1){
-            printf("Error! Print the correct card\n");
-            printf("card: ");
+            system("cls");
+            printf("\t\t\t\t\tError! Print the correct card\n");
+            a(8);
+            b(7);
+            printf("!REGISTR ACCOUNT!");
+            a(4);
+            b(6);
+            printf("   CARD NOMBER\n\n");
+            b(8);
             gets(card);
         }
         fprintf(out,"card: %s\n",card);
@@ -153,7 +195,7 @@ void rgister(const char l[20], const char p[20], const char c[19], FILE *out,Use
     fprintf(out,"favorite: %d\n",0);
     fprintf(out,"isAdmin: %d\n",0);
     char fav[29]="favorite_";
-    if (a!=0) strcat(fav,lp);
+    if (k!=0) strcat(fav,lp);
     else strcat(fav,l);
     fprintf(out,"isAdmin: %s\n\n\n",fav);
 }
@@ -164,7 +206,7 @@ int enter(const char l[20],const char p[20],Users *base){
         if (strcasecmp(base->login,l)==0){
             if  (strcmp(base->password,p)==0) return 1;
             else {
-                printf("Error! Wrong password!\n");
+                printf("\t\t\t\t\tError! Wrong password!\n");
                 return 0;
             }
         }

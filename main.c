@@ -3,8 +3,35 @@
 #include <stdlib.h>
 #include "catalog.h"
 #include "user.h"
+#include "draw_A.h"
+#include "drawing.h"
+
+const unsigned short DEFAULT_WINDOW_WIDTH = 45;
+
+void draw_movie_info_window(catalog *p) {
+    // Размеры окна
+    const unsigned short width = DEFAULT_WINDOW_WIDTH;
+    const unsigned short height = 15;
+
+    // Координаты левого верхнего угла окна
+    short x = calculate_window_x(width);
+    short y = calculate_window_y(height);
+
+    char *content[] = {p->film.name,
+                       p->film.genre,
+                       p->film.location,
+                       p->film.rating,
+                       "",
+                       p->film.release_year};
+
+    clear_viewport();
+    draw_stars_around_window(x, y, width, height);
+    draw_window(x, y, width, height, content, 6);
+}
 
 int main() {
+    hello();
+
     int i = 0;
     FILE *out = fopen("Users.txt", "a+");
     Users *userb = read_base(out), *start = read_base(out);
@@ -34,26 +61,50 @@ int main() {
         add(ctlg, *film_new);
     }
 
-    printf("Чтобы войти, в аккаунт нажмите e, чтобы зарегистрироваться - r\n");
+    rl();
     char move, login[20], password[20];
     scanf("%c", &move);
     //вход (регистрация)
     if (move == 'e') {
+        system("cls");
         while (1) {
-            printf("login: ");
+            a(8);
+            b(8);
+            printf("!LOG IN!");
+            a(4);
+            b(8);
+            printf("USER NAME\n\n");
+            b(8);
             scanf("%s", login);
-            printf("password: ");
+            a(2);
+            b(8);
+            printf("PASSWORD\n\n");
+            b(8);
             scanf("%s", password);
+            b(8);
             if (enter(login, password, userb) == 1) break;
         }
         printf("Вход успешно выполнен\n");
-    } else if (move == 'r') {
+    } else if (move == 'r'){
+        system("cls");
         char card[19];
-        printf("login: ");
+        a(8);
+        b(7);
+        printf("!REGISTR ACCOUNT!");
+        a(4);
+        b(6);
+        printf("   USER NAME(до 15 символов)\n\n");
+        b(8);
         scanf("%s", login);
-        printf("password: ");
+        a(2);
+        b(6);
+        printf("    PASSWORD(до 20 символов)\n\n");
+        b(8);
         scanf("%s", password);
-        printf("card: ");
+        a(2);
+        b(7);
+        printf("   CARD NOMBER\n\n");
+        b(8);
         gets(card);
         gets(card);
         rgister(login, password, card, out, userb);
@@ -93,7 +144,23 @@ int main() {
             add(ctlg_love, *film_new);
         }
     }
-
+    system("cls");
+    a(3);
+    b(7);
+    printf("Настройки\n");
+    b(7);
+    printf("(press q)");
+    a(2);
+    b(7);
+    printf("Избранное\n");
+    b(7);
+    printf("(press za)\n");
+    a(2);
+    b(7);
+    printf("Все фильмы\n");
+    b(7);
+    printf("(press a)\n");
+    b(7);
     catalog *p = ctlg;
     while (1) {
         scanf("%c", &move);
@@ -111,47 +178,76 @@ int main() {
         if (move == 'a') {
             system("cls");
             p = p->next;
-            printf("\n%s", p->film.name);
-            printf("%s", p->film.release_year);
-            printf("%s", p->film.location);
-            printf("%s", p->film.genre);
-            printf("%s", p->film.rating);
+            draw_movie_info_window(p);
+//            printf("\n%s", p->film.name);
+//            printf("%s", p->film.release_year);
+//            printf("%s", p->film.location);
+//            printf("%s", p->film.genre);
+//            printf("%s", p->film.rating);
         }
         //В списке всех фильмов передвижение ВПРАВО
         if (move == 'd') {
             system("cls");
             p = p->prev;
-            printf("\n%s", p->film.name);
-            printf("%s", p->film.release_year);
-            printf("%s", p->film.location);
-            printf("%s", p->film.genre);
-            printf("%s", p->film.rating);
+            draw_movie_info_window(p);
+//            printf("\n%s", p->film.name);
+//            printf("%s", p->film.release_year);
+//            printf("%s", p->film.location);
+//            printf("%s", p->film.genre);
+//            printf("%s", p->film.rating);
         }
         if (move == 'q') {
-            //тут должно появляся окно настроек пользователя(смена пароля и логина сразу, не по отдельности)
+            system("cls");
+            a(8);
+            b(6);
+            printf("СМЕНА ДАННЫХ");
             while (1) {
-                printf("login: ");
+                a(4);
+                b(6);
+                printf("USER NAME\n\n");
+                b(6);
                 scanf("%s", login);
-                printf("password: ");
+                a(2);
+                b(6);
+                printf("PASSWORD)\n\n");
+                b(6);
                 scanf("%s", password);
+                a(2);
+                b(8);
                 if (enter(login, password, userb) == 1) break;
             }
+            system("cls");
             while (strcmp(userb->login, login) != 0) userb = userb->prev;
-            printf("New login: ");
+            a(8);
+            b(6);
+            printf("Смена ДАННЫХ");
+            a(4);
+            b(6);
+            printf("NEW USER NAME(до 15 символов)\n\n");
+            b(8);
             scanf("%s", login);
-            printf("New password: ");
-            scanf("%s", password);
+            a(2);
+            b(6);
+            printf("NEW PASSWORD(до 20 символов)\n\n");
+            b(8);
+            scanf("%s\n", password);
             while (check_login1(login) != 1 || check_login2(login, start) != 1) {
-                if (check_login1(login) != 1) printf("Error! Print the correct login\n");
-                else printf("Логин занят\n");
-                printf("New login: ");
+                if (check_login1(login) != 1) printf("\t\t\t\t\tError! Print the correct login\n");
+                else printf("\t\t\t\t\tЛогин занят\n");
+                a(2);
+                b(6);
+                printf("NEW USER NAME(до 20 символов)\n\n");
                 gets(login);
+                b(8);
             }
             strcpy(userb->login, login);
             while (check_pass(password) != 1) {
-                printf("Error! Print the correct password\n");
-                printf("New password: ");
+                printf("\t\t\t\t\tError! Print the correct password\n");
+                a(2);
+                b(6);
+                printf("NEW PASSWORD(до 20 символов)\n\n");
                 gets(password);
+                b(8);
             }
             strcpy(userb->password, password);
         }
@@ -173,6 +269,8 @@ int main() {
             while (strcmp(userb->login, login) != 0) userb = userb->prev;
             if (userb->fav_size == 0) {
                 system("cls");
+                a(2);
+                b(7);
                 printf("У вас нет любимых");
                 sleep(1);
                 system("cls");
@@ -199,20 +297,22 @@ int main() {
                 if (move_love == 'a') {
                     system("cls");
                     l = l->next;
-                    printf("\n%s", l->film.name);
-                    printf("%s", l->film.release_year);
-                    printf("%s", l->film.location);
-                    printf("%s", l->film.genre);
-                    printf("%s", l->film.rating);
+                    draw_movie_info_window(l);
+//                    printf("\n%s", l->film.name);
+//                    printf("%s", l->film.release_year);
+//                    printf("%s", l->film.location);
+//                    printf("%s", l->film.genre);
+//                    printf("%s", l->film.rating);
                 }
                 if (move_love == 'd') {
                     system("cls");
                     l = l->prev;
-                    printf("\n%s", l->film.name);
-                    printf("%s", l->film.release_year);
-                    printf("%s", l->film.location);
-                    printf("%s", l->film.genre);
-                    printf("%s", l->film.rating);
+                    draw_movie_info_window(l);
+//                    printf("\n%s", l->film.name);
+//                    printf("%s", l->film.release_year);
+//                    printf("%s", l->film.location);
+//                    printf("%s", l->film.genre);
+//                    printf("%s", l->film.rating);
                 }
                 if (move_love == 'o') {
                     while (strcmp(userb->login, login) != 0) userb = userb->prev;
@@ -241,7 +341,7 @@ int main() {
             for (int j = 0; j < userb->fav_size; j++) {
                 printf("%s", l->film.name);
                 printf("\n%s", p->film.name);
-                if (p->film.name == l->film.name) {
+                if (strcmp(p->film.name, l->film.name) == 0) {
                     catalog *dl = l;
                     userb->fav_size--;
                     del(dl);
@@ -252,11 +352,12 @@ int main() {
             catalog *d = p;
             p = p->prev;
             del(d);
-            printf("\n%s", p->film.name);
-            printf("%s", p->film.release_year);
-            printf("%s", p->film.location);
-            printf("%s", p->film.genre);
-            printf("%s", p->film.rating);
+            draw_movie_info_window(p);
+//            printf("\n%s", p->film.name);
+//            printf("%s", p->film.release_year);
+//            printf("%s", p->film.location);
+//            printf("%s", p->film.genre);
+//            printf("%s", p->film.rating);
         }
         //Добавление нового фильма в films.txt когда user админ
         if (move == 'n' && userb->admin == 1) {
