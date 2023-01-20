@@ -154,9 +154,6 @@ int main() {
                 gets(password);
             }
             strcpy(userb->password, password);
-            FILE *re = fopen("Users.txt", "w");
-            rewrite(re, start);
-            fclose(re);
         }
         //Добавление в избранное
         if (move == 'l') {
