@@ -21,7 +21,7 @@ void *add(catalog *catalog1, film film1);
 
 void *del(catalog *catalog1);
 
-void write_in_love(FILE *out, film film1);
+void write_in_love_file(FILE *out, film film1);
 
 void rewrite_films(FILE *out, catalog *catalog1);
 

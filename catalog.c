@@ -32,7 +32,7 @@ void *del(catalog *catalog1){
     free(catalog1);
 }
 
-void write_in_love(FILE *out, film film1) {
+void write_in_love_file(FILE *out, film film1) {
     fprintf(out, "%s", film1.name);
     fprintf(out, "%s", film1.release_year);
     fprintf(out, "%s", film1.location);
@@ -57,3 +57,4 @@ void rewrite_films(FILE *out, catalog *catalog1){
         p = p->prev;
     }
 }
+
