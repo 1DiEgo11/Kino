@@ -93,7 +93,7 @@ int main() {
         printf("!REGISTR ACCOUNT!");
         a(4);
         b(6);
-        printf("   USER NAME(до 15 символов)\n\n");
+        printf("   USER NAME(до 20 символов)\n\n");
         b(8);
         scanf("%s", login);
         a(2);
@@ -179,6 +179,7 @@ int main() {
             system("cls");
             p = p->next;
             draw_movie_info_window(p);
+            printf("Для перелестывания влево нажмите a, вправо - d   завершение программы - b   найстрока - q   лайкнуть - l   \nоткрыть список любимых - z ");
 //            printf("\n%s", p->film.name);
 //            printf("%s", p->film.release_year);
 //            printf("%s", p->film.location);
@@ -190,6 +191,7 @@ int main() {
             system("cls");
             p = p->prev;
             draw_movie_info_window(p);
+            printf("Для перелестывания влево нажмите a, вправо - d   завершение программы - b   найстрока - q   лайкнуть - l   \nоткрыть список любимых - z ");
 //            printf("\n%s", p->film.name);
 //            printf("%s", p->film.release_year);
 //            printf("%s", p->film.location);
@@ -223,7 +225,7 @@ int main() {
             printf("Смена ДАННЫХ");
             a(4);
             b(6);
-            printf("NEW USER NAME(до 15 символов)\n\n");
+            printf("NEW USER NAME(до 20 символов)\n\n");
             b(8);
             scanf("%s", login);
             a(2);
@@ -298,6 +300,7 @@ int main() {
                     system("cls");
                     l = l->next;
                     draw_movie_info_window(l);
+                    printf("Для перелестывания влево нажмите a, вправо - d   завершение программы - b   вернуться - ta   удалить - о");
 //                    printf("\n%s", l->film.name);
 //                    printf("%s", l->film.release_year);
 //                    printf("%s", l->film.location);
@@ -308,6 +311,7 @@ int main() {
                     system("cls");
                     l = l->prev;
                     draw_movie_info_window(l);
+                    printf("Для перелестывания влево нажмите a, вправо - d   завершение программы - b   вернуться - ta   удалить - о");
 //                    printf("\n%s", l->film.name);
 //                    printf("%s", l->film.release_year);
 //                    printf("%s", l->film.location);
@@ -325,6 +329,7 @@ int main() {
                     printf("%s", l->film.location);
                     printf("%s", l->film.genre);
                     printf("%s", l->film.rating);
+                    printf("Для перелестывания влево нажмите a, вправо - d   завершение программы - b   вернуться - ta   удалить - о");
                     userb->fav_size--;
                 }
                 FILE *re_fav = fopen(userb->favorite_file, "w");
@@ -353,6 +358,7 @@ int main() {
             p = p->prev;
             del(d);
             draw_movie_info_window(p);
+            printf("Для перелестывания влево нажмите a, вправо - d   завершение программы - b   найстрока - q   лайкнуть - l   \nоткрыть список любимых - z ");
 //            printf("\n%s", p->film.name);
 //            printf("%s", p->film.release_year);
 //            printf("%s", p->film.location);

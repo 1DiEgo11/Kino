@@ -122,7 +122,7 @@ void rgister(const char l[20], const char p[20], const char c[19], FILE *out,Use
         printf("!REGISTR ACCOUNT!");
         a(4);
         b(6);
-        printf("   USER NAME(до 15 символов)\n\n");
+        printf("   USER NAME(до 20 символов)\n\n");
         b(8);
         gets(lp);
         while (check_login1(lp)!=1 || check_login2(lp,base)!=1){
@@ -134,7 +134,7 @@ void rgister(const char l[20], const char p[20], const char c[19], FILE *out,Use
             printf("!REGISTR ACCOUNT!");
             a(4);
             b(6);
-            printf("   USER NAME(до 15 символов)\n\n");
+            printf("   USER NAME(до 20 символов)\n\n");
             b(8);
             gets(lp);
             k+=1;
