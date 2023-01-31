@@ -85,7 +85,7 @@ int main() {
             if (enter(login, password, userb) == 1) break;
         }
         printf("Вход успешно выполнен\n");
-    } else if (move == 'r'){
+    } else if (move == 'r') {
         system("cls");
         char card[19];
         a(8);
@@ -110,9 +110,9 @@ int main() {
         rgister(login, password, card, out, userb);
         printf("Аккаунт успешно зарегистрирован\n");
         fclose(out);
-        FILE *outnew= fopen("Users.txt","a+");
-        start= read_base(outnew);
-        userb= read_base(outnew);
+        FILE *outnew = fopen("Users.txt", "a+");
+        start = read_base(outnew);
+        userb = read_base(outnew);
     }
 
 
@@ -324,11 +324,7 @@ int main() {
                     l = l->prev;
                     del(dl);
                     system("cls");
-                    printf("\n%s", l->film.name);
-                    printf("%s", l->film.release_year);
-                    printf("%s", l->film.location);
-                    printf("%s", l->film.genre);
-                    printf("%s", l->film.rating);
+                    draw_movie_info_window(l);
                     printf("Для перелестывания влево нажмите a, вправо - d   завершение программы - b   вернуться - ta   удалить - о");
                     userb->fav_size--;
                 }
